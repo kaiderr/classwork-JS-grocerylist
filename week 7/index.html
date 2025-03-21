@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List App</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1>Grocery List</h1>
+
+    <main>
+        <p>To add: enter item and click "Add Item"</p>
+        <p>To delete: enter item and click "Delete Item". Case sensitive!</p>
+        <textarea readonly name="textarea" id="textarea" cols="30" rows="10"></textarea>
+            
+        <label for="input">Enter item: <input type="text" id="input"></label>
+
+        <div class="buttons">
+            <input type="submit" id="submit" class="button" value="Add Item">
+            <input type="button" value="Delete Item" id="delete" class="button">
+        </div>
+    </main>
+
+
+
+    <script>
+        let textArea = document.querySelector("#textarea");
+        let input = document.querySelector("#input");
+        let submitBtn = document.querySelector("#submit");
+        let deleteBtn = document.querySelector("#delete");
+
+        const myList = ['Apples', 'Steak', 'Water', 'Noodles', 'Soap', 'Bread'];
+        function displayList(arr){
+            myList.forEach(function (item){
+            textArea.value += `${item} \n`;
+            });
+        }
+
+        function matchInput(element){
+            return (element == input.value) ? true : false;
+        }
+
+        function clearValues(){
+            textArea.value = "";
+            input.value = "";
+        }
+        
+        displayList(myList);
+        
+        
+        submitBtn.addEventListener('click', function() {
+            if (input.value.length != 0){
+                console.log(input.value);
+                myList.push(input.value);
+                console.log(myList);
+                clearValues();
+                displayList(myList);
+            }
+            else{
+                console.log("Input is empty");
+            }
+        });
+
+        deleteBtn.addEventListener('click', function() {
+            if (input.value.length != 0){
+                console.log(input.value);
+                let index = myList.findIndex(matchInput);
+                if (index != -1){
+                    console.log("true");
+                    console.log(index);
+                    myList.splice(index, 1);
+                    clearValues();
+                    displayList(myList);
+                }
+                else{
+                    input.value = "Not Found";
+                }
+            }
+            else{
+                console.log("Input is empty");
+            }
+        });
+
+        
+
+        
+
+        
+    </script>
+    
+</body>
+</html>
